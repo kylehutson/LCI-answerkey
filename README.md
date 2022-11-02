@@ -4,10 +4,12 @@
 - IP addresses configured with a gateway that lets you out to the Internet
 - DNS for all hosts configured
 - Passwordless SSH enabled from all hosts to all other hosts
-  - `ssh root@head`
-  - `[root@head ~]#ssh-keygen`
-  - `[root@head ~]# for x in head compute{1..2} storage{1..4}; do ssh-copy-id $x ; done`
-  - `[root@head ~]# for x in head compute{1..2} storage{1..4}; do scp ~/.ssh/* ${x}:.ssh/ ; done`
+  ```
+ssh root@head
+[root@head ~]#ssh-keygen
+[root@head ~]# for x in head compute{1..2} storage{1..4}; do ssh-copy-id $x ; done
+[root@head ~]# for x in head compute{1..2} storage{1..4}; do scp ~/.ssh/* ${x}:.ssh/ ; done
+```
 ## Slurm
 - Install and configure munge
   - Set the config-manager so it can find munge
@@ -49,8 +51,9 @@
     - `MariaDB [(none)]> create database slurm_acct_db;`
     - `MariaDB [(none)]> \q`
   - Create an appropriate slurmdbd.conf`
-    - `[root@head x86_64]# mkdir /etc/slurm`
-    - `[root@head x86_64]# cat << EOF > /etc/slurm/slurmdbd.conf
+```
+[root@head x86_64]# mkdir /etc/slurm
+[root@head x86_64]# cat << EOF > /etc/slurm/slurmdbd.conf
 > LogFile=/var/log/slurm/slurmdbd.log
 > DbdHost=head
 > DbdPort=6819
@@ -58,5 +61,6 @@
 > StorageHost=head
 > StoragePass=slurmpass
 > StorageLoc=slurm_acct_db
-> EOF`
+> EOF
+```
 
