@@ -5,8 +5,8 @@
 - DNS for all hosts configured
 - Passwordless SSH enabled from all hosts to all other hosts
  ```
-ssh root@head
-[root@head ~]#ssh-keygen
+$ ssh root@head
+[root@head ~]# ssh-keygen
 [root@head ~]# for x in head compute{1..2} storage{1..4}; do ssh-copy-id $x ; done
 [root@head ~]# for x in head compute{1..2} storage{1..4}; do scp ~/.ssh/* ${x}:.ssh/ ; done
 ```
@@ -35,7 +35,7 @@ Start munge and enable it everywhere
 [root@head ~]# for x in head compute{1..2}; do ssh $x systemctl start munge ; done
 ```
 ### Slurm installers
-Get my favorite downloading tool so I can use it in the next step (You could use the built-in 'curl', but you'll have to adjust your own downloads accordingly
+Get my favorite downloading tool so I can use it in the next step (You could use the built-in 'curl', but you'll have to adjust your own downloads accordingly)
 ```
 [root@head ~]# yum install -y wget
 ```
@@ -69,7 +69,9 @@ Configure MariaDB. Here I'm going to give the password 'mysecret'
 [root@head x86_64]# systemctl enable mariadb
 [root@head x86_64]# mysql_secure_installation
 ```
- - Follow the prompts with no existing password, 'y' to set the new password, enter 'mysecret' twice (it will not show on the screen), 'y' to remove anonymous users, 'y' to disallow remote root login, 'y' to remove test database, and 'y' to reload privilege tables
+ - Follow the prompts with no existing password, `y` to set the new password, enter `mysecret` twice (it will not show on the screen), `y` to remove anonymous users, `y` to disallow remote root login, `y` to remove test database, and `y` to reload privilege tables
+
+
 Configure a slurm database. Here I'm going to use the password 'slurmpass'
 ```
 [root@head x86_64]# mysql -p
@@ -77,7 +79,7 @@ Configure a slurm database. Here I'm going to use the password 'slurmpass'
  - Enter the password you created above
 ```
 MariaDB [(none)]> grant all on slurm_acct_db.* TO 'slurm'@'localhost' identified by 'slurmpass' with grant option;
-MariaDB [(none)]> create database slurm_acct_db;
+1MariaDB [(none)]> create database slurm_acct_db;
 MariaDB [(none)]> \q
 ```
 ### SlurmDBD
